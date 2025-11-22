@@ -1,19 +1,112 @@
 .header {
-    padding: 4rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 4rem;
+    margin: 3rem 0 4rem;
     text-align: center;
 }
 
 .title {
-    font-size: 3rem;
-    text-transform: capitalize;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
     color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: var(--accent);
+    margin: 0 auto;
+}
+
+.featuredWrapper {
+    margin-bottom: 4rem;
+}
+
+.featuredLink {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.featuredLink:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.featuredImage {
+    height: 400px;
+    width: 100%;
+    position: relative;
+}
+
+.placeholder {
+    width: 100%;
+    height: 100%;
+    background: #cbd5e1;
+    transition: transform 0.5s ease;
+}
+
+.featuredLink:hover .placeholder {
+    transform: scale(1.05);
+}
+
+.featuredContent {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.featuredLabel {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.featuredTitle {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.featuredExcerpt {
+    font-size: 1.125rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.featuredDate {
+    font-size: 0.875rem;
+    color: var(--muted);
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
+}
+
+@media (max-width: 1024px) {
+    .featuredLink {
+        grid-template-columns: 1fr;
+    }
+
+    .featuredImage {
+        height: 300px;
+    }
+
+    .featuredContent {
+        padding: 2rem;
+    }
 }

@@ -38,8 +38,43 @@ export default function Home() {
     show: { opacity: 1, y: 0 }
   };
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://polargofficial2026.vercel.app/#organization',
+        name: 'Politica Argentina',
+        url: 'https://polargofficial2026.vercel.app',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://polargofficial2026.vercel.app/logo.png', // Placeholder
+          width: 112,
+          height: 112
+        },
+        sameAs: [
+          'https://twitter.com/politicaarg',
+          'https://facebook.com/politicaarg'
+        ]
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://polargofficial2026.vercel.app/#website',
+        url: 'https://polargofficial2026.vercel.app',
+        name: 'Politica Argentina',
+        publisher: {
+          '@id': 'https://polargofficial2026.vercel.app/#organization'
+        }
+      }
+    ]
+  };
+
   return (
     <main ref={containerRef}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
 
       <div className={`container ${styles.main} `}>
