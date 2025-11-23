@@ -1,0 +1,118 @@
+{
+    "common": {
+        "readMore": "Leer más",
+        "shareArticle": "Compartir artículo",
+        "relatedNews": "Noticias relacionadas",
+        "latestNews": "Últimas noticias",
+        "trending": "Tendencias",
+        "categories": "Categorías",
+        "search": "Buscar",
+        "searchPlaceholder": "Buscar noticias...",
+        "loadMore": "Cargar más",
+        "noResults": "No se encontraron resultados",
+        "publishedOn": "Publicado el",
+        "by": "por",
+        "minutes": "minutos",
+        "hours": "horas",
+        "days": "días",
+        "ago": "hace"
+    },
+    "categories": {
+        "Politics": "Política",
+        "Economy": "Economía",
+        "Society": "Sociedad",
+        "World": "Mundo",
+        "Sports": "Deportes",
+        "Opinion": "Opinión",
+        "Technology": "Tecnología",
+        "Culture": "Cultura",
+        "Health": "Salud",
+        "Environment": "Medio Ambiente"
+    },
+    "navigation": {
+        "home": "Inicio",
+        "about": "Acerca de",
+        "contact": "Contacto",
+        "admin": "Administrador",
+        "login": "Iniciar sesión",
+        "logout": "Cerrar sesión",
+        "subscribe": "Suscribirse",
+        "newsletter": "Boletín"
+    },
+    "meta": {
+        "siteTitle": "Política Argentina - Noticias Premium",
+        "siteDescription": "Portal premium de noticias políticas, económicas y sociales de Argentina. Análisis profundo, cobertura en tiempo real, periodismo de calidad mundial.",
+        "keywords": "noticias argentina, política argentina, economía, actualidad, breaking news, análisis, Buenos Aires, periodismo",
+        "ogTitle": "Política Argentina | Portal Premium de Noticias",
+        "ogDescription": "Noticias de última hora, análisis profundo y cobertura completa de Argentina y el mundo.",
+        "twitterTitle": "Política Argentina - Breaking News",
+        "twitterDescription": "Tu fuente confiable de noticias argentina en tiempo real."
+    },
+    "footer": {
+        "aboutUs": "Sobre nosotros",
+        "privacy": "Privacidad",
+        "terms": "Términos",
+        "contact": "Contacto",
+        "advertising": "Publicidad",
+        "careers": "Trabaja con nosotros",
+        "rss": "RSS",
+        "followUs": "Síguenos",
+        "copyright": "© 2025 Política Argentina. Todos los derechos reservados.",
+        "premium": "Portal Premium de Noticias"
+    },
+    "article": {
+        "breaking": "Última Hora",
+        "featured": "Destacado",
+        "exclusive": "Exclusiva",
+        "updated": "Actualizado",
+        "share": {
+            "facebook": "Compartir en Facebook",
+            "twitter": "Compartir en Twitter",
+            "whatsapp": "Compartir en WhatsApp",
+            "telegram": "Compartir en Telegram",
+            "linkedin": "Compartir en LinkedIn",
+            "email": "Enviar por correo",
+            "copy": "Copiar enlace"
+        },
+        "tags": "Etiquetas",
+        "source": "Fuente",
+        "author": "Autor",
+        "photographer": "Fotógrafo",
+        "editor": "Editor"
+    },
+    "admin": {
+        "dashboard": "Panel de Control",
+        "articles": "Artículos",
+        "createArticle": "Crear Artículo",
+        "editArticle": "Editar Artículo",
+        "deleteArticle": "Eliminar Artículo",
+        "categories": "Categorías",
+        "users": "Usuarios",
+        "settings": "Configuración",
+        "analytics": "Analíticas",
+        "seo": "SEO",
+        "publish": "Publicar",
+        "draft": "Borrador",
+        "scheduled": "Programado",
+        "statistics": "Estadísticas",
+        "views": "Vistas",
+        "shares": "Compartidos",
+        "comments": "Comentarios"
+    },
+    "errors": {
+        "404": "Página no encontrada",
+        "500": "Error del servidor",
+        "offline": "Sin conexión a internet",
+        "tryAgain": "Intentar de nuevo",
+        "goHome": "Volver al inicio"
+    },
+    "newsletter": {
+        "title": "Suscríbete a nuestro boletín",
+        "description": "Recibe las noticias más importantes directamente en tu correo",
+        "placeholder": "Tu correo electrónico",
+        "subscribe": "Suscribirse",
+        "success": "¡Gracias por suscribirte!",
+        "error": "Error al suscribirse. Intenta de nuevo.",
+        "privacy": "Respetamos tu privacidad. Sin spam."
+    }
+}
