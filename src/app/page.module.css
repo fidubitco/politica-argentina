@@ -10,127 +10,232 @@
   margin-bottom: 4rem;
 }
 
-.featuredCard {
-  grid-column: span 2;
-  grid-row: span 2;
+/* Hero Section Premium */
+.hero {
+  min-height: calc(100vh - var(--header-height));
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 3rem 0;
   position: relative;
-  border-radius: 8px;
   overflow: hidden;
-  background: #f1f5f9;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-30px, -30px) scale(1.1);
+  }
+}
+
+.heroMain {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  transition: transform var(--transition-slow);
+  cursor: pointer;
+}
+
+.heroMain:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(30, 64, 175, 0.3);
+}
+
+.heroImage {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: all var(--transition-slow);
+}
+
+.heroMain:hover .heroImage {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 100%);
+  color: white;
+}
+
+.heroCategory {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: var(--gradient-accent);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.heroTitle {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.heroExcerpt {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.95;
+  max-width: 90%;
+}
+
+/* Secondary Grid Mejorado */
+.heroSecondary {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .secondaryCard {
-  grid-column: span 1;
-  grid-row: span 1;
   position: relative;
-  border-radius: 8px;
+  border-radius: 20px;
   overflow: hidden;
-  background: #f1f5f9;
-  display: flex;
-  flex-direction: column;
-}
-
-.cardContent {
-  padding: 1.5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 2;
-}
-
-.secondaryCard .cardContent {
   background: white;
-  color: var(--foreground);
-  position: relative;
-  justify-content: flex-start;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  border: 1px solid var(--border);
 }
 
-.category {
-  font-size: 0.75rem;
-  font-weight: 700;
+.secondaryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+.secondaryImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.secondaryCard:hover .secondaryImage {
+  transform: scale(1.08);
+}
+
+.secondaryContent {
+  padding: 1.5rem;
+}
+
+.secondaryCategory {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-  display: block;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
 }
 
-.featuredCard .category {
-  color: var(--accent-light);
-}
-
-.title {
-  font-family: var(--font-heading);
+.secondaryTitle {
   font-size: 1.25rem;
-  margin-bottom: 0.5rem;
   line-height: 1.3;
-}
-
-.featuredCard .title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.excerpt {
-  font-size: 0.9rem;
-  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.secondaryCard .excerpt {
-  color: var(--muted);
-}
-
-.date {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: auto;
-}
-
-.featuredCard .date {
-  color: #cbd5e1;
+/* Latest News Section */
+.latestNews {
+  padding: 5rem 0;
+  background: linear-gradient(to bottom, var(--background) 0%, #f1f5f9 100%);
 }
 
 .sectionTitle {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  border-left: 4px solid var(--accent);
-  padding-left: 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.latestGrid {
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--gradient-accent);
+  border-radius: 2px;
+}
+
+.newsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
+  margin-top: 3rem;
 }
 
+/* Responsive Design Mejorado */
 @media (max-width: 1024px) {
-  .heroGrid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+  .hero {
+    grid-template-columns: 1fr;
   }
 
-  .featuredCard {
-    grid-column: span 2;
+  .heroSecondary {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+  }
+
+  .heroImage {
     height: 400px;
   }
-
-  .secondaryCard {
-    height: 300px;
-  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+
+  .heroSecondary {
+    grid-template-columns: 1fr;
+  }
+
+  .heroImage {
+    height: 300px;
+  }
+
   .heroGrid {
     grid-template-columns: 1fr;
   }
