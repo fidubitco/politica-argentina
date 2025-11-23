@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styles from './admin.module.css';
 
+import LogoutButton from '@/components/admin/LogoutButton';
+
 export default function AdminLayout({
     children,
 }: {
@@ -16,6 +18,10 @@ export default function AdminLayout({
                     <Link href="/admin/editor" className={styles.navLink}>Nueva Noticia</Link>
                     <Link href="/admin/seo" className={styles.navLink}>SEO Audit Tool</Link>
                     <Link href="/" className={styles.navLink}>Ver Sitio</Link>
+
+                    <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+                        <LogoutButton />
+                    </div>
                 </nav>
             </aside>
             <main className={styles.main}>

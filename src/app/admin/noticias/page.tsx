@@ -1,51 +1,100 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import styles from '../admin.module.css';
-import { MOCK_NEWS } from '@/lib/mock-data';
+import { Edit, Trash2, Plus, Search } from 'lucide-react';
+import styles from './page.module.css';
 
-export default function NewsManagementPage() {
+export default function AdminNewsPage() {
+    const [articles, setArticles] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        fetchArticles();
+    }, []);
+
+    const fetchArticles = async () => {
+        try {
+            const res = await fetch('/api/articles');
+            const data = await res.json();
+            setArticles(data.articles || []);
+        } catch (error) {
+            console.error('Error fetching articles:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (confirm('¿Estás seguro de eliminar esta noticia?')) {
+            try {
+                await fetch(`/api/articles/${id}`, { method: 'DELETE' });
+                fetchArticles(); // Refresh list
+            } catch (error) {
+                console.error('Error deleting article:', error);
+            }
+        }
+    };
+
+    const filteredArticles = articles.filter(article =>
+        article.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (loading) return <div className="p-8 text-center">Cargando noticias...</div>;
+
     return (
-        <div>
-            <header className={styles.header}>
-                <h1 className={styles.title}>Gestionar Noticias</h1>
-                <Link href="/admin/editor" style={{ padding: '0.75rem 1.5rem', background: 'var(--primary)', color: 'white', borderRadius: '4px', textDecoration: 'none' }}>
-                    + Nueva Noticia
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>Gestión de Noticias</h1>
+                <Link href="/admin/editor" className={styles.createBtn}>
+                    <Plus size={20} />
+                    Nueva Noticia
                 </Link>
-            </header>
+            </div>
 
-            <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead style={{ background: '#f1f5f9' }}>
-                        <tr style={{ textAlign: 'left' }}>
-                            <th style={{ padding: '1rem', color: '#64748b', fontWeight: '600' }}>Título</th>
-                            <th style={{ padding: '1rem', color: '#64748b', fontWeight: '600' }}>Categoría</th>
-                            <th style={{ padding: '1rem', color: '#64748b', fontWeight: '600' }}>Fecha</th>
-                            <th style={{ padding: '1rem', color: '#64748b', fontWeight: '600' }}>Estado</th>
-                            <th style={{ padding: '1rem', color: '#64748b', fontWeight: '600' }}>Acciones</th>
+            <div className={styles.searchBar}>
+                <Search size={20} className={styles.searchIcon} />
+                <input
+                    type="text"
+                    placeholder="Buscar noticias..."
+                    className={styles.searchInput}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            <div className={styles.tableContainer}>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Categoría</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {MOCK_NEWS.map((news) => (
-                            <tr key={news.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                                <td style={{ padding: '1rem', maxWidth: '300px' }}>
-                                    <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{news.title}</div>
-                                    <div style={{ fontSize: '0.875rem', color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{news.excerpt}</div>
+                        {filteredArticles.map((article) => (
+                            <tr key={article.id}>
+                                <td className={styles.titleCell}>{article.title}</td>
+                                <td>
+                                    <span className={styles.categoryBadge}>{article.category.name}</span>
                                 </td>
-                                <td style={{ padding: '1rem' }}>
-                                    <span style={{ background: '#e0f2fe', color: '#0369a1', padding: '0.25rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: '700' }}>
-                                        {news.category}
+                                <td>{new Date(article.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                    <span className={`${styles.statusBadge} ${article.published ? styles.published : styles.draft}`}>
+                                        {article.published ? 'Publicado' : 'Borrador'}
                                     </span>
                                 </td>
-                                <td style={{ padding: '1rem', fontSize: '0.9rem', color: '#64748b' }}>{news.date}</td>
-                                <td style={{ padding: '1rem' }}>
-                                    <span style={{ background: '#dcfce7', color: '#166534', padding: '0.25rem 0.5rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '600' }}>
-                                        Publicado
-                                    </span>
-                                </td>
-                                <td style={{ padding: '1rem' }}>
-                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                        <button style={{ padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '4px', background: 'white', cursor: 'pointer' }} aria-label="Editar">✏️</button>
-                                        <button style={{ padding: '0.5rem', border: '1px solid #fca5a5', borderRadius: '4px', background: '#fef2f2', color: '#dc2626', cursor: 'pointer' }} aria-label="Eliminar">🗑️</button>
-                                    </div>
+                                <td className={styles.actionsCell}>
+                                    <Link href={`/admin/editor?id=${article.id}`} className={styles.actionBtn} title="Editar">
+                                        <Edit size={18} />
+                                    </Link>
+                                    <button onClick={() => handleDelete(article.id)} className={`${styles.actionBtn} ${styles.deleteBtn}`} title="Eliminar">
+                                        <Trash2 size={18} />
+                                    </button>
                                 </td>
                             </tr>
                         ))}

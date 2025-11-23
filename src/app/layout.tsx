@@ -19,16 +19,20 @@ export const metadata: Metadata = {
   description: "El portal de noticias líder en Argentina. Información actualizada, análisis político y cobertura exclusiva.",
 };
 
+import Providers from '@/components/providers/SessionProvider';
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="es">
-      <body className={`${playfair.variable} ${inter.variable}`}>
-        {children}
+    <html lang="es" className={`${playfair.variable} ${inter.variable}`}>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
-  );
+  )
 }

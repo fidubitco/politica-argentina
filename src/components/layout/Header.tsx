@@ -1,56 +1,77 @@
 'use client';
 
 import Link from 'next/link';
-import styles from './Header.module.css';
-import { Search, Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Menu, X, Sun, Moon, User } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import styles from './Header.module.css';
 
 export default function Header() {
-    const [isDark, setIsDark] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [theme, setTheme] = useState('light');
+    const { data: session } = useSession();
 
     useEffect(() => {
-        // Check system preference or saved preference
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setIsDark(true);
+            setTheme('dark');
         }
     }, []);
 
     const toggleTheme = () => {
-        // This is a simple implementation. In a real app, use next-themes
-        const newTheme = !isDark;
-        setIsDark(newTheme);
-        document.documentElement.style.colorScheme = newTheme ? 'dark' : 'light';
-        if (newTheme) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
     };
 
     return (
         <header className={styles.header}>
-            <div className={`container ${styles.navContainer}`}>
+            <div className={`container ${styles.container}`}>
                 <Link href="/" className={styles.logo}>
-                    Politica<span>Argentina</span>
+                    Politica<span className={styles.highlight}>Argentina</span>
                 </Link>
 
+                {/* Desktop Nav */}
                 <nav className={styles.nav}>
                     <Link href="/seccion/politica" className={styles.navLink}>Política</Link>
                     <Link href="/seccion/economia" className={styles.navLink}>Economía</Link>
                     <Link href="/seccion/sociedad" className={styles.navLink}>Sociedad</Link>
-                    <Link href="/seccion/internacionales" className={styles.navLink}>Mundo</Link>
-                    <Link href="/seccion/opinion" className={styles.navLink}>Opinión</Link>
+                    <Link href="/seccion/mundo" className={styles.navLink}>Mundo</Link>
+                    {session && (
+                        <Link href="/admin" className={styles.navLink} style={{ color: 'var(--primary)', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                            <User size={16} /> Admin
+                        </Link>
+                    )}
                 </nav>
 
                 <div className={styles.actions}>
-                    <button className={styles.searchBtn} onClick={toggleTheme} aria-label="Cambiar Tema">
-                        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                    <button onClick={toggleTheme} className={styles.iconBtn} aria-label="Toggle Theme">
+                        {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
                     </button>
-                    <button className={styles.searchBtn} aria-label="Buscar">
-                        <Search size={20} />
+
+                    <button
+                        className={styles.menuBtn}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label="Menu"
+                    >
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </div>
+
+            {/* Mobile Nav */}
+            {isMenuOpen && (
+                <div className={styles.mobileMenu}>
+                    <Link href="/seccion/politica" className={styles.mobileLink} onClick={() => setIsMenuOpen(false)}>Política</Link>
+                    <Link href="/seccion/economia" className={styles.mobileLink} onClick={() => setIsMenuOpen(false)}>Economía</Link>
+                    <Link href="/seccion/sociedad" className={styles.mobileLink} onClick={() => setIsMenuOpen(false)}>Sociedad</Link>
+                    <Link href="/seccion/mundo" className={styles.mobileLink} onClick={() => setIsMenuOpen(false)}>Mundo</Link>
+                    {session && (
+                        <Link href="/admin" className={styles.mobileLink} onClick={() => setIsMenuOpen(false)} style={{ color: 'var(--primary)' }}>
+                            Panel Admin
+                        </Link>
+                    )}
+                </div>
+            )}
         </header>
     );
 }

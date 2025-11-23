@@ -42,3 +42,5 @@ prisma/*.db-journal
 
 # uploads
 /public/uploads
+
+/src/generated/prisma

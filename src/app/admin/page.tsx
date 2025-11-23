@@ -20,11 +20,20 @@ const categoryData = [
     { name: 'Mundo', cantidad: 15 },
 ];
 
+import { useSession } from 'next-auth/react';
+
 export default function AdminDashboard() {
+    const { data: session } = useSession();
+
     return (
         <div>
             <header className={styles.header}>
-                <h1 className={styles.title}>Dashboard</h1>
+                <div>
+                    <h1 className={styles.title}>Dashboard</h1>
+                    <p style={{ color: 'var(--muted)', marginTop: '0.25rem' }}>
+                        Bienvenido, {session?.user?.name || 'Usuario'}
+                    </p>
+                </div>
             </header>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginBottom: '3rem' }}>
